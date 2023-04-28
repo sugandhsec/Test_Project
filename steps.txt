@@ -1,0 +1,59 @@
+step1: Open the shell in working project folder
+step2: Import the required models in the shell Using Command
+
+	from app_test.models import Building, RoomType, Room, BlockedDay
+
+step3: Created a Building Object,Room Type Object and Room object and 
+associated it with the Building and Room Type using command
+
+	building = Building.objects.create(name='Building1')
+	room_type = RoomType.objects.create(name='RoomType1', type='Single', building=building)
+	room = Room.objects.create(number=101, room_type=room_type, price=2000.0)
+
+step4: Created 20 Blocked Days and 10 Random Blocked days Using command
+
+
+
+from app_test.models import Building, RoomType, Room, BlockedDay
+
+building = Building.objects.create(name='Building1')
+room_type = RoomType.objects.create(name='RoomType1', type='Single', building=building)
+room = Room.objects.create(number=101, room_type=room_type, price=2000.0)
+from datetime import date, timedelta
+
+start_date1 = date(2022, 12, 1)
+end_date1 = date(2022, 12, 10)
+
+start_date2 = date(2022, 12, 20)
+end_date2 = date(2022, 12, 30)
+
+delta = timedelta(days=1)
+
+while start_date1 <= end_date1:
+    data1=BlockedDay.objects.create(day=start_date1, room=room)
+    start_date1 += delta
+    data1.save()
+while start_date2 <= end_date2:
+    data2=BlockedDay.objects.create(day=start_date2, room=room)
+    start_date2 += delta
+    data2.save()
+
+
+    # block random days for any future dates
+import random
+
+today = date.today()
+
+for i in range(10):
+    random_date = today + timedelta(days=random.randint(1, 365))
+    data3=BlockedDay.objects.create(day=random_date, room=room)
+    data3.save()
+
+
+To run test case run command in terminal where manage.py is located means in main folder
+ python manage.py test
+
+
+
+
+
